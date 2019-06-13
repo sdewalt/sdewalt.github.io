@@ -1,0 +1,35 @@
+You’ll notice right away that there are two separate functions in our Javascript code. In fact, the “tick” function is sitting inside of the “countdown” function! This is called “nesting functions”.
+It sets a variable named “seconds” to the value that the user inputs.
+It creates and runs the tick function.
+The tick function, on the other hand, has several steps to execute and will end up repeating multiple times.
+Immediately after the countdown function has received the input value from the user, the tick function begins laying out its instructions. It’s important to recognize that the tick function is not actually being executed yet. It is simply letting its instructions be made known in case the function ever actually needs to be used. Once the Interpreter reads the tick function, it steps out and sees the instruction “tick()”. Upon seeing this function, the Interpreter knows to immediately go back through the tick function. However, this time instead of simply reading the function it is actually going to run the function.
+Take a look at the variable “seconds” within the tick function. It is taking the value “seconds” from the countdown function and subtracting 1 from it. The reason that this value needs to be subtracted by 1 is because each time this function runs, it will last one second (as we will see) and we need the variable “seconds” to subtract 1 each time a second goes by.
+Right after 1 second is subtracted from the user’s input the first time through the tick function, that same number that has been subtracted by 1 will now be displayed for the user to see. This happens because the timer.innerHTML is being assigned this number. Remember how we put “id=timer” in one of our HTML tags? That tag now holds this number that we assigned it.
+The statement “setTimeout(tick, 1000);” simply means that the program is pausing for 1000 milliseconds (i.e. 1 second). This is important because this function is going to potentially repeat multiple times - and every time it repeats, it needs to do so for a duration of exactly one second.
+We now have our conditional statement. What it’s telling us is that if the user’s input ever counts all the way down to -1, stop everything and run the alert box. You may be asking yourself why -1 instead of 0. The reason is that when the interpreter sees -1, it hasn’t actually displayed it to the user yet. The user is still seeing a 0. Therefore, before the -1 is displayed, the alert box will show up preventing any other code from running. As a note, if the user clicks the OK button on the alert box, he/she will see the timer continue to count down into the negatives. This is fine for now since we’re just practicing.
+Now, if the user input does not equal -1, the Interpreter will simply step out of the function like before. But wait; It’s going to run into that “tick()” statement again! Exactly. Do you see how our function will continue to repeat now? That is, until our conditional statement is met - wherein the alert box is displayed.
+Try it out for yourself and don’t worry if you have to read the code through several times before it really begins to sink in!
+
+<!DOCTYPE html>
+<html>
+<body>
+<p>How many seconds would you like to set your alarm for?</p>
+<input id="seconds" value="" />
+<button onclick="countdown()">Click here</button>
+<p id="timer"></p>
+<script>
+function countdown() {
+   var seconds = document.getElementById("seconds").value; 
+   function tick() {
+         seconds = seconds - 1;
+	timer.innerHTML = seconds;
+	setTimeout(tick, 1000);
+	    if(seconds == -1){
+	        alert("Time's up!");
+	    }
+        } 
+    tick();
+}
+</script>
+</body>
+</html>
